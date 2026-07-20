@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Big Boss — Bài viết</title>
+  <meta name="description" content="Chi tiết bài viết tin tức và kiến thức chăn nuôi từ Big Boss - thuốc thú y." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+</head>
+<body>
+  <div class="scroll-progress"></div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="brand-logo"><img src="assets/img/logo.png" alt="Big Boss - Thuốc thú y" /></span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="san-pham.html">Sản phẩm</a></li>
+        <li><a href="tin-tuc.html">Tin tức</a></li>
+        <li><a href="lien-he.html">Liên hệ</a></li>
+        <li><a href="lien-he.html" class="nav-cta">Tư vấn ngay</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <!-- ARTICLE HERO -->
+  <section class="page-hero article-hero">
+    <span class="blob" style="width:160px;height:160px;background:var(--gold);top:20%;right:10%"></span>
+    <span class="blob" style="width:130px;height:130px;background:var(--brand-3);bottom:14%;left:8%;animation-delay:1.5s"></span>
+    <div class="container">
+      <span class="a-emoji" id="a-emoji" data-reveal="zoom">📰</span>
+      <div class="eyebrow" id="a-cat" data-reveal="up" data-delay="1">Tin tức</div>
+      <h1 id="a-title" data-reveal="up" data-delay="2">Đang tải bài viết…</h1>
+      <div class="a-meta" id="a-meta" data-reveal="up" data-delay="3"></div>
+      <div class="breadcrumb" data-reveal="up" data-delay="3">
+        <a href="index.html">Trang chủ</a> / <a href="tin-tuc.html">Tin tức</a> / <span id="a-crumb"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE BODY -->
+  <section class="section" style="padding-top:70px">
+    <div class="container">
+      <div class="article-layout">
+        <!-- MAIN -->
+        <article data-reveal="up">
+          <div class="article-figure" id="a-fig"><span id="a-emoji2">📰</span></div>
+          <p class="article-lead" id="a-excerpt"></p>
+          <div class="article-body" id="a-body"></div>
+
+          <div class="article-foot">
+            <div class="article-tags">
+              <span># Big Boss</span><span># Thú y</span><span># Chăn nuôi</span>
+            </div>
+            <div class="share-row">
+              <span class="lbl">Chia sẻ:</span>
+              <a data-share="facebook" title="Facebook">📘</a>
+              <a data-share="zalo" title="Zalo">💬</a>
+              <a data-share="copy" title="Sao chép liên kết">🔗</a>
+            </div>
+          </div>
+
+          <a href="tin-tuc.html" class="article-back">← Quay lại trang Tin tức</a>
+        </article>
+
+        <!-- SIDEBAR -->
+        <aside class="article-side" data-reveal="up" data-delay="1">
+          <div class="side-box">
+            <h3>📰 Bài viết liên quan</h3>
+            <div id="a-related"></div>
+          </div>
+          <div class="side-cta">
+            <h3>Cần tư vấn?</h3>
+            <p>Đội ngũ bác sĩ thú y Big Boss luôn sẵn sàng hỗ trợ bạn 24/7.</p>
+            <a href="lien-he.html" class="btn btn-primary">Liên hệ ngay →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand"><span class="brand-logo"><img src="assets/img/logo.png" alt="Big Boss - Thuốc thú y" /></span></a>
+          <p>Công ty thuốc thú y Big Boss — Đồng hành cùng sức khỏe vật nuôi, vì một nền chăn nuôi bền vững và thịnh vượng.</p>
+          <div class="socials"><a href="#">📘</a><a href="#">▶️</a><a href="#">💬</a><a href="#">🎵</a></div>
+        </div>
+        <div class="footer-col"><h4>Liên kết</h4><a href="index.html">Trang chủ</a><a href="san-pham.html">Sản phẩm</a><a href="tin-tuc.html">Tin tức</a><a href="lien-he.html">Liên hệ</a></div>
+        <div class="footer-col"><h4>Danh mục</h4><a href="san-pham.html">Kháng sinh</a><a href="san-pham.html">Vaccine</a><a href="san-pham.html">Vitamin</a><a href="san-pham.html">Thảo dược</a></div>
+        <div class="footer-col"><h4>Liên hệ</h4><ul class="footer-contact"><li><span class="ic">📍</span> KCN Vsip, Bình Dương, Việt Nam</li><li><span class="ic">📞</span> 1900 6868</li><li><span class="ic">✉️</span> info@bigboss-vet.vn</li></ul></div>
+      </div>
+      <div class="footer-bottom">© <span data-year></span> Big Boss Veterinary. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="Lên đầu trang">↑</button>
+  <script src="assets/js/articles.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
