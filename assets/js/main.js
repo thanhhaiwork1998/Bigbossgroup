@@ -48,9 +48,9 @@
   }
 
   /* ---------- Scroll reveal (IntersectionObserver) ---------- */
-  const revealEls = document.querySelectorAll("[data-reveal]");
+  let revealIO = null;
   if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(
+    revealIO = new IntersectionObserver(
       (entries, obs) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
@@ -61,10 +61,14 @@
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add("is-visible"));
   }
+  // Có thể gọi lại cho nội dung nạp động (danh sách từ API)
+  window.bbObserveReveals = function (root) {
+    const els = (root || document).querySelectorAll("[data-reveal]:not(.is-visible)");
+    if (revealIO) els.forEach((el) => revealIO.observe(el));
+    else els.forEach((el) => el.classList.add("is-visible"));
+  };
+  window.bbObserveReveals(document);
 
   /* ---------- Animated counters ---------- */
   const counters = document.querySelectorAll("[data-count]");
@@ -154,17 +158,70 @@
     });
   });
 
-  /* ---------- Contact form (demo, no send) ---------- */
+  /* ---------- Contact form → gửi về CMS (nhận mail) ---------- */
   const form = document.querySelector("#contactForm");
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const val = (n) => { const el = form.querySelector(`[name="${n}"]`); return el ? el.value.trim() : ""; };
+      const payload = { name: val("name"), phone: val("phone"), email: val("email"), subject: val("subject"), content: val("content") };
       const ok = form.querySelector(".form-success");
-      if (ok) ok.classList.add("show");
-      form.reset();
-      setTimeout(() => ok && ok.classList.remove("show"), 6000);
+      const btn = form.querySelector('button[type="submit"]');
+      const original = btn ? btn.textContent : "";
+      if (btn) { btn.disabled = true; btn.textContent = "Đang gửi…"; }
+      try {
+        const r = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        if (!r.ok) throw new Error();
+        if (ok) ok.classList.add("show");
+        form.reset();
+        setTimeout(() => ok && ok.classList.remove("show"), 6000);
+      } catch {
+        // Khi mở bằng file:// (không có server) vẫn hiển thị thành công demo
+        if (ok) { ok.textContent = "✅ Cảm ơn bạn! (Lưu ý: cần chạy qua máy chủ CMS để nhận tin nhắn thật)"; ok.classList.add("show"); }
+        form.reset();
+        setTimeout(() => ok && ok.classList.remove("show"), 6000);
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = original; }
+      }
     });
   }
+
+  /* ---------- Nạp logo + thông tin liên hệ từ CMS ---------- */
+  (async function loadSettings() {
+    try {
+      const r = await fetch("/api/settings");
+      if (!r.ok) return;
+      const s = await r.json();
+      if (s.logo) document.querySelectorAll(".brand-logo img").forEach((img) => (img.src = s.logo));
+      const apply = (key, val) => {
+        if (val == null) return;
+        document.querySelectorAll(`[data-cms="${key}"]`).forEach((el) => {
+          el.textContent = val;
+          if (el.tagName === "A") {
+            if (key === "hotline") el.setAttribute("href", "tel:" + String(val).replace(/[^0-9+]/g, ""));
+            if (key === "email") el.setAttribute("href", "mailto:" + val);
+          }
+        });
+      };
+      apply("hotline", s.hotline);
+      apply("email", s.email);
+      apply("address", s.address);
+      apply("siteName", s.siteName);
+    } catch {}
+  })();
+
+  /* ---------- Đo lượt truy cập (traffic) ---------- */
+  (function track() {
+    try {
+      const path = location.pathname;
+      if (path.startsWith("/admin")) return;
+      let vid = localStorage.getItem("bb_vid");
+      if (!vid) { vid = Date.now().toString(36) + Math.random().toString(36).slice(2, 8); localStorage.setItem("bb_vid", vid); }
+      const body = JSON.stringify({ path, vid });
+      if (navigator.sendBeacon) navigator.sendBeacon("/api/track", new Blob([body], { type: "application/json" }));
+      else fetch("/api/track", { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true }).catch(() => {});
+    } catch {}
+  })();
 
   /* ---------- Newsletter (demo) ---------- */
   const nl = document.querySelector("#newsletterForm");

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Big Boss CMS — Quản trị</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <!-- LOGIN -->
+  <div id="login" class="login-wrap">
+    <form class="login-card" id="loginForm">
+      <div class="login-logo">👑</div>
+      <h1>BIG BOSS <span>CMS</span></h1>
+      <p>Đăng nhập hệ thống quản trị</p>
+      <div class="field"><label>Tài khoản</label><input id="loginUser" value="admin" autocomplete="username" /></div>
+      <div class="field"><label>Mật khẩu</label><input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••" /></div>
+      <div class="login-err" id="loginErr"></div>
+      <button class="btn btn-gold" type="submit">Đăng nhập →</button>
+      <div class="login-hint">Mặc định: <b>admin</b> / <b>bigboss@2026</b></div>
+    </form>
+  </div>
+
+  <!-- APP -->
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-crown">👑</span> BIG BOSS <small>CMS</small></div>
+      <nav class="menu">
+        <a data-section="dashboard" class="active">📊 Tổng quan</a>
+        <a data-section="products">📦 Sản phẩm</a>
+        <a data-section="categories">🗂️ Danh mục</a>
+        <a data-section="articles">📰 Bài viết</a>
+        <a data-section="messages">✉️ Tin nhắn <span class="badge" id="navUnread"></span></a>
+        <a data-section="settings">⚙️ Cài đặt & Logo</a>
+      </nav>
+      <div class="sidebar-foot">
+        <a href="/" target="_blank">🌐 Xem website</a>
+        <button id="logoutBtn">↩ Đăng xuất</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <h2 id="pageTitle">Tổng quan</h2>
+        <button class="btn btn-gold" id="addBtn">+ Thêm mới</button>
+      </header>
+      <div id="view"></div>
+    </main>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-head"><h3 id="modalTitle">Sửa</h3><button id="modalClose">✕</button></div>
+      <form id="modalForm" class="modal-body"></form>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" id="modalCancel">Hủy</button>
+        <button class="btn btn-gold" id="modalSave">Lưu lại</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "bigboss-cms",
+  "version": "1.0.0",
+  "description": "Website + CMS thuốc thú y Big Boss (Node.js thuần, không cần cài thêm gói)",
+  "main": "cms/server.js",
+  "scripts": {
+    "start": "node cms/server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "private": true
+}
